@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(46, 42, 42);
+  padding-left: 5px;
+}
+#root {
+  display: grid;
+  grid-template-columns: 315px 5fr 4fr;
+}
+.interface {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-content {
+  padding-top: 130px;
+  display: grid;
+  grid-template-rows: 3fr 4fr;
+  grid-template-columns: 1fr;
+  margin-left: 10px;
+  height: calc(100vh - 130px);
+}
+.sporedne-vijesti {
+  background-color: black;
+  width: 100%;
+  height: 95%;
+  border-radius: 30px;
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  align-content: flex-start;
+}
+
+
+.mala-vijest {
+  background-color: rgb(37, 28, 15);
+  width: 300px;
+  height: 300px;
+  margin: 30px;
+}

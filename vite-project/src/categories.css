@@ -1,0 +1,17 @@
+.categories {
+  background-color: black;
+  flex: 1;
+  width: 300px;
+  margin: 15px ;
+  border-radius: 30px;
+}
+.categories h2{
+  color: aliceblue;
+  text-align: center;
+  font-size: 30px;
+}
+.categories P{
+  color: aliceblue;
+  font-size: 21px;
+  margin: 40px;
+}
