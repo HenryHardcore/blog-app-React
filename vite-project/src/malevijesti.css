@@ -1,0 +1,32 @@
+.mala-vijest {
+  background-color: rgb(37, 28, 15);
+  width: 380px;
+  height: 320px;
+  margin: 20px 0;
+  border-radius: 20px;
+  position: relative;
+  background-image: url('./fotografije/Screenshot_1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.naslovv {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  white-space: normal;
+  padding: 0 10px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.naslovv h2{
+  color: aliceblue;
+  font-size: 25px;
+  margin: 15px 0;
+}
+
+

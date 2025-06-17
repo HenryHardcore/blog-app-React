@@ -4,6 +4,7 @@ import Profile from "./Profile.jsx"
 import Categories from "./Categories.jsx"
 import GlavnaVijest from "./GlavnaVijest.jsx"
 import MyBlogs from "./MyBlogs.jsx"
+import MaleVijesti from './MaleVijesti.jsx'
 
 function App() {
 
@@ -17,15 +18,7 @@ function App() {
       <div className='main-content'>
         <GlavnaVijest/>
         <div className='sporedne-vijesti'>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
-          <div className='mala-vijest'></div>
+          <MaleVijesti/>
         </div>
       </div>
       <MyBlogs/>

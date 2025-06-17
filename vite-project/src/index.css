@@ -42,9 +42,3 @@ body {
 .sporedne-vijesti::-webkit-scrollbar-track {
   background: transparent;
 }
-.mala-vijest {
-  background-color: rgb(37, 28, 15);
-  width: 380px;
-  height: 320px;
-  margin: 20px 0;
-}
