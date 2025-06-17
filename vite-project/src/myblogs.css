@@ -1,0 +1,7 @@
+.my-blogs {
+  background-color: black;
+  width: 98%;
+  height: calc(100% - 150px);
+  margin: 130px 10px 0 10px;
+  border-radius: 30px;
+}

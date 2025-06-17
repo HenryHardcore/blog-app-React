@@ -6,7 +6,7 @@ import './header.css'
 import './profile.css'
 import './categories.css'
 import './glavna-vijest.css'
-
+import './myblogs.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

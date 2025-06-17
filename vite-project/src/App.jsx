@@ -3,6 +3,7 @@ import Header from "./Header.jsx"
 import Profile from "./Profile.jsx"
 import Categories from "./Categories.jsx"
 import GlavnaVijest from "./GlavnaVijest.jsx"
+import MyBlogs from "./MyBlogs.jsx"
 
 function App() {
 
@@ -20,8 +21,14 @@ function App() {
           <div className='mala-vijest'></div>
           <div className='mala-vijest'></div>
           <div className='mala-vijest'></div>
+          <div className='mala-vijest'></div>
+          <div className='mala-vijest'></div>
+          <div className='mala-vijest'></div>
+          <div className='mala-vijest'></div>
+          <div className='mala-vijest'></div>
         </div>
       </div>
+      <MyBlogs/>
     </>
   )
 }
