@@ -31,9 +31,23 @@
 .naslov h2{
   color: aliceblue;
   font-size: 35px;
-  margin: 15px 0;
+  margin: 15px 50px 15px 15px;
 }
-
+.naslov button {
+  background-image: url('./fotografije/icons-bookmark.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 60px;
+  width: 70px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
 .news-details {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 15px;

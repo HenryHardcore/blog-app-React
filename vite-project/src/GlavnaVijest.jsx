@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useVijest } from './VijestContext';
+import iconBookmark from './fotografije/icons-bookmark.png';
+import iconBookmarkFilled from './fotografije/icons-bookmark-filled.png';
 
 
 function GlavnaVijest() {
@@ -9,6 +11,8 @@ function GlavnaVijest() {
   const [url, setUrl] = useState('');
   const [showDetails, setShowDetails] = useState(false);
   const { vijest } = useVijest();
+  const [bookmark, setBookmark] = useState(false)
+
 
 
   useEffect(() => {
@@ -47,6 +51,14 @@ function GlavnaVijest() {
   >
     <div className="naslov">
       {!showDetails && <h2>{headline || 'Loading headline...'}</h2>}
+      <button className="bookmark-button"
+      onClick={(e) => {
+        e.stopPropagation();
+        setBookmark(!bookmark);
+      }}
+      style={{
+        backgroundImage: `url(${bookmark ? iconBookmarkFilled : iconBookmark})`,
+      }}></button>
     </div>
     {showDetails && (
         <div className="news-details">
