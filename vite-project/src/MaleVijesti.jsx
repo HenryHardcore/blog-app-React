@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useVijest } from './VijestContext';
+import iconBookmark from './fotografije/icons-bookmark.png';
+import iconBookmarkFilled from './fotografije/icons-bookmark-filled.png';
 
 
 function MaleVijesti() {
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const { vijest } = useVijest();
+  const [bookmarks, setBookmarks] = useState([]);
+  
 
 
   useEffect(() => {
@@ -23,6 +27,7 @@ function MaleVijesti() {
         .slice(0, 12); 
 
         setArticles(news);
+        setBookmarks(new Array(news.length).fill(false))
       } catch (error) {
         console.error('Failed to fetch news:', error);
       }
@@ -53,12 +58,24 @@ function MaleVijesti() {
                 {article.description || 'No description available.'}
               </p>
               <a href={article.url} target="_blank" rel="noopener noreferrer">
-                <button className="read-more">Read More</button>
+                <button className="read-moree">Read More</button>
               </a>
             </>
           ) : (
             <h2>{article.title}</h2>
           )}
+          <button
+          className="bookmark-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            const updated = [...bookmarks];
+            updated[index] = !updated[index]; 
+            setBookmarks(updated);
+          }}
+          style={{
+            backgroundImage: `url(${bookmarks[index] ? iconBookmarkFilled : iconBookmark})`,
+          }}
+        ></button>
           </div>
         </div>
       ))}
