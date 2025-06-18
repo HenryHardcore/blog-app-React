@@ -27,7 +27,13 @@ function MaleVijesti() {
         .slice(0, 12); 
 
         setArticles(news);
-        setBookmarks(new Array(news.length).fill(false))
+
+        const savedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+        
+        const bookmarksStatus = news.map(article => savedBookmarks.includes(article.url));
+
+        setBookmarks(bookmarksStatus);
+
       } catch (error) {
         console.error('Failed to fetch news:', error);
       }
@@ -68,9 +74,24 @@ function MaleVijesti() {
           className="bookmark-button"
           onClick={(e) => {
             e.stopPropagation();
+            const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+
             const updated = [...bookmarks];
-            updated[index] = !updated[index]; 
+            const newStatus = !bookmarks[index];  
+            updated[index] = newStatus;
             setBookmarks(updated);
+
+            let updatedStored;
+            const articleUrl = articles[index].url;  
+
+            if (newStatus) {
+              
+              updatedStored = [...stored, articleUrl];
+            } else {
+              
+              updatedStored = stored.filter(item => item !== articleUrl);
+            }
+            localStorage.setItem('bookmarked-urls', JSON.stringify(updatedStored));
           }}
           style={{
             backgroundImage: `url(${bookmarks[index] ? iconBookmarkFilled : iconBookmark})`,
