@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useVijest } from './VijestContext';
 
 
 function GlavnaVijest() {
@@ -7,13 +8,14 @@ function GlavnaVijest() {
   const [description, setDescription] = useState('');
   const [url, setUrl] = useState('');
   const [showDetails, setShowDetails] = useState(false);
+  const { vijest } = useVijest();
 
 
   useEffect(() => {
     async function fetchNews() {
       try {
         const res = await fetch(
-          'https://newsapi.org/v2/top-headlines?country=us&apiKey=5f65315585d841a38ddf4e78f42f5f2c'
+          `https://newsapi.org/v2/top-headlines?country=us&category=${vijest}&apiKey=5f65315585d841a38ddf4e78f42f5f2c`
         );
         const data = await res.json();
         const firstArticle = data.articles[0];
@@ -28,7 +30,7 @@ function GlavnaVijest() {
     }
 
     fetchNews();
-  }, []);
+  }, [vijest]);
 
   function toggleDetails() {
     setShowDetails(prev => !prev);

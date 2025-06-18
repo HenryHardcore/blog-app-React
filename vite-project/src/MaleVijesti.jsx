@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
+import { useVijest } from './VijestContext';
 
 
 function MaleVijesti() {
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
+  const { vijest } = useVijest();
 
 
   useEffect(() => {
     async function fetchNews() {
       try {
         const res = await fetch(
-          'https://newsapi.org/v2/top-headlines?country=us&apiKey=5f65315585d841a38ddf4e78f42f5f2c'
+          `https://newsapi.org/v2/top-headlines?country=us&category=${vijest}&apiKey=5f65315585d841a38ddf4e78f42f5f2c`
         );
         const data = await res.json();
 
@@ -27,7 +29,7 @@ function MaleVijesti() {
     }
 
     fetchNews();
-  }, []);
+  }, [vijest]);
 
   function toggleDetails(index) {
     setActiveIndex((prev) => (prev === index ? null : index));
