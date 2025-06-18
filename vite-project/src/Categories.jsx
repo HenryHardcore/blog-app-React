@@ -1,16 +1,23 @@
+
+
+
+
+
 function Categories() {
+
+
   return(
   <div className="categories">
     <h2>CATEGORIES</h2>
-    <p>GENERAL</p>
-    <p>WORLD</p>
-    <p>BUSINESS</p>
-    <p>TECHNOLOGY</p>
-    <p>ENTERTAIMENT</p>
-    <p>SPORTS</p>
-    <p>HEALTH</p>
-    <p>NATION</p>
-    <p>BOOKMARLS</p>
+    <button>GENERAL</button>
+    <button>WORLD</button>
+    <button>BUSINESS</button>
+    <button>TECHNOLOGY</button>
+    <button>ENTERTAIMENT</button>
+    <button>SbuttonORTS</button>
+    <button>HEALTH</button>
+    <button>NATION</button>
+    <button>BOOKMARLS</button>
   </div>)
 }
 
