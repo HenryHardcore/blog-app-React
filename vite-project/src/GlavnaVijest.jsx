@@ -28,6 +28,10 @@ function GlavnaVijest() {
         setImageUrl(firstArticle.urlToImage);
         setDescription(firstArticle.description);
         setUrl(firstArticle.url);
+
+        const savedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+        setBookmark(savedBookmarks.includes(firstArticle.url));
+
       } catch (err) {
         console.error('Failed to fetch news:', err);
       }
@@ -53,8 +57,20 @@ function GlavnaVijest() {
       {!showDetails && <h2>{headline || 'Loading headline...'}</h2>}
       <button className="bookmark-button"
       onClick={(e) => {
-        e.stopPropagation();
-        setBookmark(!bookmark);
+      e.stopPropagation();
+      const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+
+      let updated;
+      if (bookmark) {
+        
+        updated = stored.filter(item => item !== url);
+      } else {
+        
+        updated = [...stored, url];
+      }
+      localStorage.setItem('bookmarked-urls', JSON.stringify(updated));
+      setBookmark(!bookmark);
+      
       }}
       style={{
         backgroundImage: `url(${bookmark ? iconBookmarkFilled : iconBookmark})`,
