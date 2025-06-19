@@ -9,6 +9,7 @@ import './categories.css'
 import './glavna-vijest.css'
 import './myblogs.css'
 import './malevijesti.css'
+import './make-post.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

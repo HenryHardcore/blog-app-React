@@ -5,11 +5,15 @@ import Categories from "./Categories.jsx"
 import GlavnaVijest from "./GlavnaVijest.jsx"
 import MyBlogs from "./MyBlogs.jsx"
 import MaleVijesti from './MaleVijesti.jsx'
+import MakePost from "./MakePost.jsx"
 
 function App() {
 
   return (
     <>
+      <div className='form-for-post'>
+        <MakePost/>
+      </div>
       <Header/>
       <div className='interface'>
         <Profile/>
