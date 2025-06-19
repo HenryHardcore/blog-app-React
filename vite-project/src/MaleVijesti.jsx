@@ -30,7 +30,7 @@ function MaleVijesti() {
 
         const savedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
         
-        const bookmarksStatus = news.map(article => savedBookmarks.includes(article.url));
+        const bookmarksStatus = news.map(article => savedBookmarks.some(item => item.url === article.url));
 
         setBookmarks(bookmarksStatus);
 

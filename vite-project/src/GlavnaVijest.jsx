@@ -30,7 +30,8 @@ function GlavnaVijest() {
         setUrl(firstArticle.url);
 
         const savedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
-        setBookmark(savedBookmarks.includes(firstArticle.url));
+        const isBookmarked = savedBookmarks.some(item => item.url === firstArticle.url);
+        setBookmark(isBookmarked);
 
       } catch (err) {
         console.error('Failed to fetch news:', err);
