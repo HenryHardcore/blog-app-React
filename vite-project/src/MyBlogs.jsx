@@ -32,13 +32,16 @@ function MyBlogs() {
   return (
     <div className="my-blogs">
       <h2>{sova[0]}</h2>
-      { sova[0] === "Bookmarks" && niz.length === 0 && (
+      <div className="kontejner">
+        { sova[0] === "Bookmarks" && niz.length === 0 && (
         <p>Oops, looks like u haven't bookmarked anything yet, try bookmarking some article to get started</p>
       )}
       { sova[0] === "MyBlogs" && niz.length === 0 && (
-        <p>Oops, looks like u haven't posted anything yet, try posting something to get started</p>
+        <div className='divcibare'>
+          <p>Oops, looks like u haven't posted anything yet, try posting something to get started</p>
+          <button className='make-a-post'>Make a Post</button>
+        </div>
       )}
-      <div className="kontejner">
         {niz.map((article, index) => (
           <div
             className="mala-vijestt"
@@ -52,14 +55,14 @@ function MyBlogs() {
           >
             <div className="naslovv">
               {activeIndex === index ? (
-                <>
+                <div>
                   <p style={{ fontSize: '18px', color: 'aliceblue' }}>
                     {article.description || 'No description available.'}
                   </p>
                   <a href={article.url} target="_blank" rel="noopener noreferrer">
                     <button className="read-moree">Read More</button>
                   </a>
-                </>
+                </div>
               ) : (
                 <h2>{article.title || 'No Title'}</h2>
               )}

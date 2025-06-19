@@ -10,6 +10,7 @@
   background-position: center;
   position: relative;
   transition: all 0.3s ease;
+  align-items: flex-end;
 }
 .glavna-vijest img {
   border-radius: 30px;
@@ -51,8 +52,7 @@
 .news-details {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 15px;
-  margin-top: 10px;
-  border-radius: 10px;
+  border-radius: 30px;
   animation: fadeIn 0.4s ease-in-out;
   color: aliceblue;
   font-size: 30px;
