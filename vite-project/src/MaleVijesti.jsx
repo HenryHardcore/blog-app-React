@@ -76,6 +76,13 @@ function MaleVijesti() {
             e.stopPropagation();
             const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
 
+            const article = {
+              url: articles[index].url,
+              title: articles[index].title,
+              description: articles[index].description,
+              urlToImage: articles[index].urlToImage
+            };
+
             const updated = [...bookmarks];
             const newStatus = !bookmarks[index];  
             updated[index] = newStatus;
@@ -83,13 +90,10 @@ function MaleVijesti() {
 
             let updatedStored;
             const articleUrl = articles[index].url;  
-
             if (newStatus) {
-              
-              updatedStored = [...stored, articleUrl];
+              updatedStored = [...stored, article];
             } else {
-              
-              updatedStored = stored.filter(item => item !== articleUrl);
+              updatedStored = stored.filter(item => item.url !== articleUrl);
             }
             localStorage.setItem('bookmarked-urls', JSON.stringify(updatedStored));
           }}
