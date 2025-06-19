@@ -1,6 +1,19 @@
+import { useEffect } from 'react';
+import { useSova } from './VijestContext';
+
+
+
 function MyBlogs() {
+  const { sova } = useSova();
+  const [niz, setNiz] = useState([]);
 
 
+  useEffect(() => {
+    if(sova === "Bookmarks") {
+      setNiz(JSON.parse(localStorage.getItem('bookmarked-urls') || '[]'))
+    }
+    else setNiz(JSON.parse(localStorage.getItem('my-blogs') || '[]'))
+  }, [sova])
   
   return(
   <div className="my-blogs">

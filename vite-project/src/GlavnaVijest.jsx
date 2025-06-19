@@ -60,13 +60,20 @@ function GlavnaVijest() {
       e.stopPropagation();
       const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
 
+      const article = {
+        url,
+        title: headline,
+        description,
+        urlToImage: imageUrl
+      };
+
       let updated;
       if (bookmark) {
         
-        updated = stored.filter(item => item !== url);
+        updated = stored.filter(item => item.url !== url);
       } else {
         
-        updated = [...stored, url];
+        updated = [...stored, article];
       }
       localStorage.setItem('bookmarked-urls', JSON.stringify(updated));
       setBookmark(!bookmark);
