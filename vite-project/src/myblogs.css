@@ -38,3 +38,8 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+.my-blogs p {
+  color: aliceblue;
+  text-align: center;
+  font-size: 18px;
+}

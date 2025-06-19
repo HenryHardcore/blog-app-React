@@ -32,6 +32,12 @@ function MyBlogs() {
   return (
     <div className="my-blogs">
       <h2>{sova[0]}</h2>
+      { sova[0] === "Bookmarks" && niz.length === 0 && (
+        <p>Oops, looks like u haven't bookmarked anything yet, try bookmarking some article to get started</p>
+      )}
+      { sova[0] === "MyBlogs" && niz.length === 0 && (
+        <p>Oops, looks like u haven't posted anything yet, try posting something to get started</p>
+      )}
       <div className="kontejner">
         {niz.map((article, index) => (
           <div
