@@ -19,7 +19,7 @@ export function useVijest() {
 const SovaContext = createContext();
 
 export function SovaProvider({ children }) {
-  const [sova, setSova] = useState(false);
+  const [sova, setSova] = useState('MyBlogs');
 
   return (
     <SovaContext.Provider value={{ sova, setSova }}>
