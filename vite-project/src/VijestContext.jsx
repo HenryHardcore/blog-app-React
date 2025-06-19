@@ -15,3 +15,19 @@ export function VijestProvider({ children }) {
 export function useVijest() {
   return useContext(VijestContext);
 }
+
+const SovaContext = createContext();
+
+export function SovaProvider({ children }) {
+  const [sova, setSova] = useState(false);
+
+  return (
+    <SovaContext.Provider value={{ sova, setSova }}>
+      {children}
+    </SovaContext.Provider>
+  );
+}
+
+export function useSova() {
+  return useContext(SovaContext);
+}

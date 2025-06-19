@@ -1,13 +1,18 @@
-import { useVijest } from './VijestContext';
+import { useVijest, useSova } from './VijestContext';
 
 
 
 
 function Categories() {
   const { setVijest } = useVijest();
+  const { setSova } = useSova();
 
   function HandleClick(e) {
     setVijest(e.target.value);
+  }
+
+  function HandleSova(e) {
+    setSova(e.target.value)
   }
 
   return(
@@ -20,8 +25,8 @@ function Categories() {
     <button value="sports" onClick={HandleClick}>SPORTS</button>
     <button value="health" onClick={HandleClick}>HEALTH</button>
     <button value="nation" onClick={HandleClick}>NATION</button>
-    <button value="bookmarks">BOOKMARKS</button>
-    <button>MYBLOGS</button>
+    <button value="Bookmarks" onClick={HandleSova}>BOOKMARKS</button>
+    <button value="MyBlogs" onClick={HandleSova}>MYBLOGS</button>
   </div>)
 }
 
