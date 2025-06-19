@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useVijest } from './VijestContext';
 import iconBookmark from './fotografije/icons-bookmark.png';
 import iconBookmarkFilled from './fotografije/icons-bookmark-filled.png';
+import { useSova } from './VijestContext';
 
 
 function GlavnaVijest() {
@@ -11,7 +12,8 @@ function GlavnaVijest() {
   const [url, setUrl] = useState('');
   const [showDetails, setShowDetails] = useState(false);
   const { vijest } = useVijest();
-  const [bookmark, setBookmark] = useState(false)
+  const [bookmark, setBookmark] = useState(false);
+  const { sova, setSova } = useSova();
 
 
 
@@ -39,7 +41,7 @@ function GlavnaVijest() {
     }
 
     fetchNews();
-  }, [vijest]);
+  }, [vijest, sova[1]]);
 
   function toggleDetails() {
     setShowDetails(prev => !prev);
@@ -61,6 +63,8 @@ function GlavnaVijest() {
       e.stopPropagation();
       const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
 
+      let brojac = 0;
+
       const article = {
         url,
         title: headline,
@@ -70,15 +74,15 @@ function GlavnaVijest() {
 
       let updated;
       if (bookmark) {
-        
         updated = stored.filter(item => item.url !== url);
+        brojac -= 1;
       } else {
-        
+        brojac +=1;
         updated = [...stored, article];
       }
       localStorage.setItem('bookmarked-urls', JSON.stringify(updated));
       setBookmark(!bookmark);
-      
+      setSova([sova[0], sova[1] + brojac])
       }}
       style={{
         backgroundImage: `url(${bookmark ? iconBookmarkFilled : iconBookmark})`,

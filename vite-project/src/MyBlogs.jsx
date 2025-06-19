@@ -5,8 +5,9 @@ import iconBookmark from './fotografije/icons-bookmark.png';
 import iconBookmarkFilled from './fotografije/icons-bookmark-filled.png';
 
 
+
 function MyBlogs() {
-  const { sova } = useSova();
+  const { sova, setSova } = useSova();
   const [niz, setNiz] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [bookmarks, setBookmarks] = useState([]);
@@ -68,14 +69,19 @@ function MyBlogs() {
                   setBookmarks(updated);
 
                   let updatedStored;
+                  let brojac = 0;
+
 
                   if (newStatus) {
+                    brojac += 1;
                     updatedStored = [...stored, article];
                   } else {
+                    brojac -= 1;
                     updatedStored = stored.filter(item => item.url !== article.url);
                   }
 
                   localStorage.setItem('bookmarked-urls', JSON.stringify(updatedStored));
+                  setSova([sova[0], sova[1] + brojac])
                 }}
                 style={{
                   backgroundImage: `url(${bookmarks[index] ? iconBookmarkFilled : iconBookmark})`,
