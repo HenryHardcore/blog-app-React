@@ -2,17 +2,16 @@ import { useVijest } from './VijestContext';
 import { useSova } from './VijestContext';
 
 
-
 function Categories() {
   const { setVijest } = useVijest();
-  const { setSova } = useSova();
+  const { sova, setSova } = useSova();
 
   function HandleClick(e) {
     setVijest(e.target.value);
   }
 
   function HandleSova(e) {
-    setSova(e.target.value)
+    setSova([e.target.value, sova[1]])
   }
 
   return(

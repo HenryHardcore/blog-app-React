@@ -13,7 +13,7 @@ function MyBlogs() {
   
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(
-      sova === 'Bookmarks' ? 'bookmarked-urls' : 'my-blogs'
+      sova[0] === 'Bookmarks' ? 'bookmarked-urls' : 'my-blogs'
     ) || '[]');
     setNiz(data);
 
@@ -30,7 +30,7 @@ function MyBlogs() {
 
   return (
     <div className="my-blogs">
-      <h2>{sova}</h2>
+      <h2>{sova[0]}</h2>
       <div className="kontejner">
         {niz.map((article, index) => (
           <div
