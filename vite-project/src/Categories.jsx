@@ -21,6 +21,7 @@ function Categories() {
     <button value="health" onClick={HandleClick}>HEALTH</button>
     <button value="nation" onClick={HandleClick}>NATION</button>
     <button value="bookmarks">BOOKMARKS</button>
+    <button>MYBLOGS</button>
   </div>)
 }
 
