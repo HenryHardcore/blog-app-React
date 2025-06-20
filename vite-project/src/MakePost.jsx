@@ -38,26 +38,30 @@ function MakePost() {
     setDescription('');
     setImage(null);
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <h2 style={{ color: 'white',  }}>Create a Post</h2>
 
-      <input
-        className='image-input'
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-        style={{ marginBottom: '10px', }}
-      />
-
-      {image && (
+      <div className='image-input-container'>
+        <h2 className='image-label'>Upload Image:</h2>
+        <label className="custom-file-upload">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="image-input"
+          />
+        </label>
+        {image && (
         <img
           src={image}
           alt="Preview"
-          style={{ maxWidth: '50px', maxHeight: '50px', borderRadius: '20px', objectFit: 'cover' }}
+          style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px', objectFit: 'cover' }}
         />
       )}
+      </div>
+
 
       <div className='headline-input-container'>
         <h2 className='title'
