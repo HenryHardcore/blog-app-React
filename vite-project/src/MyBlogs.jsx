@@ -63,9 +63,11 @@ function MyBlogs({ onClose }) {
                   <p style={{ fontSize: '18px', color: 'aliceblue' }}>
                     {article.description || 'No description available.'}
                   </p>
-                  <a href={article.url} target="_blank" rel="noopener noreferrer">
-                    <button className="read-moree">Read More</button>
-                  </a>
+                  {article.url && (
+                    <a href={article.url} target="_blank" rel="noopener noreferrer">
+                      <button className="read-moree">Read More</button>
+                    </a>
+                  )}
                 </div>
               ) : (
                 <h2>{article.title || 'No Title'}</h2>
