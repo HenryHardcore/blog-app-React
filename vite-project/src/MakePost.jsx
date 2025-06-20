@@ -4,6 +4,7 @@ function MakePost({ onClose }) {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [link, setLink] = useState('');
   
   
   const handleImageUpload = (e) => {
@@ -29,6 +30,7 @@ function MakePost({ onClose }) {
       title,
       description,
       image,
+      url: link.trim() !== '' ? link : null,
     };
 
     
@@ -105,13 +107,22 @@ function MakePost({ onClose }) {
           <p>{description.length}/70 characters</p>
         </div>
 
+        <div className='external-link-container'>
+          <h2>External Link (Optional): </h2>
+          <input
+            type="url"
+            placeholder="https://example.com"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+          />
+        </div>
+
         <div className='post-button-container'>
           <button className='post-button' type="submit">
             Post
           </button>
         </div>
       </form>
-    
   );
 }
 

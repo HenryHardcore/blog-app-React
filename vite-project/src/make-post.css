@@ -6,7 +6,7 @@
 }
 .form-for-post form {
   width: 40vw;
-  height: 700px;
+  height: 800px;
   background-color: rgb(46, 42, 42);
   border-radius: 50px;
   padding: 10px;
@@ -120,4 +120,21 @@
 .x-button-container {
   display: flex;
   justify-content: right;
+}
+.external-link-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.external-link-container h2{
+  margin-left: 50px;
+  margin-right: 20px;
+}
+.external-link-container input{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid black;
+  font-size: 25px;
+  width: 50%;
 }
