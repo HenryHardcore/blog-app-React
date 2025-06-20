@@ -37,6 +37,8 @@ function MyBlogs({ onClose }) {
     setActiveIndex(prev => (prev === index ? null : index));
   };
 
+  
+
   return (
     <div className="my-blogs">
       <h2>{sova[0]}</h2>
@@ -61,6 +63,12 @@ function MyBlogs({ onClose }) {
               backgroundPosition: 'center',
             }}
           >
+            { sova[0] === "MyBlogs" && (
+              <div className='buttons' onClick={(e) => e.stopPropagation()}>
+                <button className='edit-post'></button>
+                <button className='delete-post'></button>
+              </div>
+            )}
             <div className="naslovv">
               {activeIndex === index ? (
                 <div>

@@ -37,6 +37,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 .my-blogs p {
   color: aliceblue;
@@ -68,4 +69,47 @@
 .make-a-post:active {
   font-size: 20px;
   background-color: aliceblue;
+}
+.buttons {
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: right;
+  padding-right: 10px;
+  padding-left: 5px;
+  height: 55px;
+  align-items: center;
+  cursor: default;
+  width: fit-content;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.edit-post {
+  background-image: url('./fotografije/edit.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 48px;
+  width: 50px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+.delete-post {
+  background-image: url('./fotografije/icons8-delete-50.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 48px;
+  width: 50px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.mala-vijestt:hover .buttons {
+  opacity: 1;
+  pointer-events: auto;
 }
