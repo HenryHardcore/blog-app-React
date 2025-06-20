@@ -18,16 +18,20 @@ function MyBlogs({ onClose }) {
     ) || '[]');
     setNiz(data);
 
-    if (sova[0] === 'Bookmarks') {
-      const storedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
-      const bookmarksFlags = data.map(article =>
-        storedBookmarks.some(bookmarked => bookmarked.url === article.url)
-      );
-      setBookmarks(bookmarksFlags);
-    } else {
-      setBookmarks([]); 
+    const storedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+
+    const bookmarksFlags = data.map(article => {
+      return storedBookmarks.some(bookmarked => {
+        if (article.id && bookmarked.id) {
+          return article.id === bookmarked.id;
+        }
+        return article.url && bookmarked.url && article.url === bookmarked.url;
+      });
+    });
+
+    setBookmarks(bookmarksFlags);
     }
-  }, [sova]);
+  , [sova]);
 
   const toggleDetails = (index) => {
     setActiveIndex(prev => (prev === index ? null : index));
@@ -78,25 +82,38 @@ function MyBlogs({ onClose }) {
                   e.stopPropagation();
                   const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
 
+                  
                   const updated = [...bookmarks];
                   const newStatus = !bookmarks[index];
                   updated[index] = newStatus;
                   setBookmarks(updated);
+                  
+
+                  
+                  const isUserPost = !!article.id;
+                  const identifier = isUserPost ? article.id : article.url;
 
                   let updatedStored;
-                  let brojac = 0;
-
 
                   if (newStatus) {
-                    brojac += 1;
-                    updatedStored = [...stored, article];
-                  } else {
-                    brojac -= 1;
-                    updatedStored = stored.filter(item => item.url !== article.url);
-                  }
+                    const alreadyBookmarked = stored.some(item =>
+                      isUserPost ? item.id === identifier : item.url === identifier
+                    );
 
+                    updatedStored = alreadyBookmarked ? stored : [...stored, article];
+                  } else {
+                    updatedStored = stored.filter(item =>
+                      isUserPost
+                        ? item.id !== identifier
+                        : item.url !== identifier
+                    );
+                  }
+                  
                   localStorage.setItem('bookmarked-urls', JSON.stringify(updatedStored));
-                  setSova([sova[0], sova[1] + brojac])
+
+                  
+                  const brojac = newStatus ? 1 : -1;
+                  setSova([sova[0], sova[1] + brojac]);
                 }}
                 style={{
                   backgroundImage: `url(${bookmarks[index] ? iconBookmarkFilled : iconBookmark})`,

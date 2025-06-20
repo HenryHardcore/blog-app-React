@@ -27,6 +27,7 @@ function MakePost({ onClose }) {
     }
 
     const newPost = {
+      id: crypto.randomUUID?.() || Date.now(), 
       title,
       description,
       image,
