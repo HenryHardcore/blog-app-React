@@ -1,15 +1,19 @@
 import { useState } from 'react';
 
-function MakePost() {
+function MakePost({ onClose }) {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imgURL = URL.createObjectURL(file); // Creates a temp URL to preview
-      setImage(imgURL);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Base64 encoded image
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -37,67 +41,79 @@ function MakePost() {
     setTitle('');
     setDescription('');
     setImage(null);
+    onClose();
   };
   
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 style={{ color: 'white',  }}>Create a Post</h2>
+    
+      <form onSubmit={handleSubmit}>
+        <div className='x-button-container'>
+          <button
+            type="button"
+            className="close-button"
+            onClick={onClose}
+          >
+            X
+          </button>
+        </div>
+        <h2 style={{ color: 'white',  }}>Create a Post</h2>
 
-      <div className='image-input-container'>
-        <h2 className='image-label'>Upload Image:</h2>
-        <label className="custom-file-upload">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="image-input"
+        <div className='image-input-container'>
+          <h2 className='image-label'>Upload Image:</h2>
+          <label className="custom-file-upload">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="image-input"
+            />
+          </label>
+          {image && (
+          <img
+            src={image}
+            alt="Preview"
+            style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px', objectFit: 'cover' }}
           />
-        </label>
-        {image && (
-        <img
-          src={image}
-          alt="Preview"
-          style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '20px', objectFit: 'cover' }}
-        />
-      )}
-      </div>
+        )}
+        </div>
 
 
-      <div className='headline-input-container'>
-        <h2 className='title'
-        style={{ marginRight : '10px'}}
-        >Add title:</h2>
-        <input
-          className='headline-input'
-          type="text"
-          placeholder="Enter title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          
-        />
-      </div>
+        <div className='headline-input-container'>
+          <h2 className='title'
+          style={{ marginRight : '10px'}}
+          >Add title:</h2>
+          <input
+            className='headline-input'
+            type="text"
+            placeholder="Enter title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            
+          />
+        </div>
 
-      <div className='description-container'>
-        <h2>Add description</h2>
-        <textarea
-          className='description'
-          placeholder="Enter description (max 70 characters)"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          maxLength={70}
-          required
-        />
+        <div className='description-container'>
+          <h2>Add description</h2>
+          <textarea
+            className='description'
+            placeholder="Enter description (max 70 characters)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            maxLength={70}
+            required
+          />
 
-        <p>{description.length}/70 characters</p>
-      </div>
+          <p>{description.length}/70 characters</p>
+        </div>
 
-      <div className='post-button-container'>
-        <button className='post-button' type="submit">
-          Post
-        </button>
-      </div>
-    </form>
+        <div className='post-button-container'>
+          <button className='post-button' type="submit">
+            Post
+          </button>
+        </div>
+      </form>
+    
   );
 }
 

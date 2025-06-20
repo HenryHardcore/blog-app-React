@@ -8,12 +8,15 @@ import MaleVijesti from './MaleVijesti.jsx'
 import MakePost from "./MakePost.jsx"
 
 function App() {
+  const [showPostForm, setShowPostForm] = useState(true);
 
   return (
     <>
-      <div className='form-for-post'>
-        <MakePost/>
-      </div>
+      {showPostForm && (
+        <div className='form-for-post'>
+          <MakePost onClose={() => setShowPostForm(false)} />
+        </div>
+      )}
       <Header/>
       <div className='interface'>
         <Profile/>
