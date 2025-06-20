@@ -6,7 +6,7 @@ import iconBookmarkFilled from './fotografije/icons-bookmark-filled.png';
 
 
 
-function MyBlogs() {
+function MyBlogs({ onClose }) {
   const { sova, setSova } = useSova();
   const [niz, setNiz] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -18,11 +18,15 @@ function MyBlogs() {
     ) || '[]');
     setNiz(data);
 
-    const storedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
-    const bookmarksFlags = data.map(article => 
-      storedBookmarks.some(bookmarked => bookmarked.url === article.url)
-    );
-    setBookmarks(bookmarksFlags);
+    if (sova[0] === 'Bookmarks') {
+      const storedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+      const bookmarksFlags = data.map(article =>
+        storedBookmarks.some(bookmarked => bookmarked.url === article.url)
+      );
+      setBookmarks(bookmarksFlags);
+    } else {
+      setBookmarks([]); 
+    }
   }, [sova]);
 
   const toggleDetails = (index) => {
@@ -39,7 +43,7 @@ function MyBlogs() {
       { sova[0] === "MyBlogs" && niz.length === 0 && (
         <div className='divcibare'>
           <p>Oops, looks like u haven't posted anything yet, try posting something to get started</p>
-          <button className='make-a-post'>Make a Post</button>
+          <button className='make-a-post' onClick={ onClose }>Make a Post</button>
         </div>
       )}
         {niz.map((article, index) => (
@@ -48,7 +52,7 @@ function MyBlogs() {
             key={index}
             onClick={() => toggleDetails(index)}
             style={{
-              backgroundImage: `url(${article.urlToImage || './fallback.jpg'})`,
+              backgroundImage: `url(${article.image || article.urlToImage || './fallback.jpg'})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}

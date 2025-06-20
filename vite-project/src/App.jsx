@@ -28,7 +28,7 @@ function App() {
           <MaleVijesti/>
         </div>
       </div>
-      <MyBlogs/>
+      <MyBlogs onClose={() => setShowPostForm(true)} />
     </>
   )
 }

@@ -5,13 +5,13 @@ function MakePost({ onClose }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   
-
+  
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result); // Base64 encoded image
+        setImage(reader.result); 
       };
       reader.readAsDataURL(file);
     }
@@ -31,13 +31,11 @@ function MakePost({ onClose }) {
       image,
     };
 
-    console.log('New Post:', newPost);
-
-    // Save to localStorage or send to backend
+    
     const stored = JSON.parse(localStorage.getItem('my-blogs') || '[]');
     localStorage.setItem('my-blogs', JSON.stringify([...stored, newPost]));
 
-    // Clear form
+    
     setTitle('');
     setDescription('');
     setImage(null);
