@@ -82,7 +82,7 @@
   width: fit-content;
   margin-left: auto;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 .edit-post {
   background-image: url('./fotografije/edit.png');
