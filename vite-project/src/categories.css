@@ -18,5 +18,10 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  padding: 2px;
+}
+@media (max-width: 2000px) {
+  .categories button {
+    margin: 20px;
+    font-size: 22px;
+  }
 }
