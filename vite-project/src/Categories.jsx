@@ -2,7 +2,7 @@ import { useVijest } from './VijestContext';
 import { useSova } from './VijestContext';
 
 
-function Categories() {
+function Categories({ onClose }) {
   const { setVijest } = useVijest();
   const { sova, setSova } = useSova();
 
@@ -26,6 +26,7 @@ function Categories() {
     <button value="nation" onClick={HandleClick}>NATION</button>
     <button value="Bookmarks" onClick={HandleSova}>BOOKMARKS</button>
     <button value="MyBlogs" onClick={HandleSova}>MYBLOGS</button>
+    <button value="MyBlogs" onClick={ onClose }>AD POST</button>
   </div>)
 }
 

@@ -20,7 +20,7 @@ function App() {
       <Header/>
       <div className='interface'>
         <Profile/>
-        <Categories/>
+        <Categories onClose={() => setShowPostForm(true)}/>
       </div>
       <div className='main-content'>
         <GlavnaVijest/>
