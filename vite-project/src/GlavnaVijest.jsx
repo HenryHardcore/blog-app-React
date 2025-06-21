@@ -32,7 +32,7 @@ function GlavnaVijest() {
         setUrl(firstArticle.url);
 
         const savedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
-        const isBookmarked = savedBookmarks.some(item => item.url === firstArticle.url);
+        const isBookmarked = savedBookmarks.includes(firstArticle.url);
         setBookmark(isBookmarked);
 
       } catch (err) {
@@ -61,28 +61,34 @@ function GlavnaVijest() {
       <button className="bookmark-button"
       onClick={(e) => {
       e.stopPropagation();
-      const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
 
+      const storedIds = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+      const storedArticles = JSON.parse(localStorage.getItem('bookmarked-articles') || '{}');
+
+      const identifier = url;
+      const fullArticle = { url, title: headline, description, urlToImage: imageUrl };
+
+      let updatedIds = [...storedIds];
+      let updatedArticles = { ...storedArticles };
       let brojac = 0;
 
-      const article = {
-        url,
-        title: headline,
-        description,
-        urlToImage: imageUrl
-      };
-
-      let updated;
       if (bookmark) {
-        updated = stored.filter(item => item.url !== url);
-        brojac -= 1;
+        updatedIds = storedIds.filter(item => item !== identifier);
+        delete updatedArticles[identifier];
+        brojac = -1;
       } else {
-        brojac +=1;
-        updated = [...stored, article];
+        if (!storedIds.includes(identifier)) {
+          updatedIds.push(identifier);
+          updatedArticles[identifier] = fullArticle;
+        }
+        brojac = 1;
       }
-      localStorage.setItem('bookmarked-urls', JSON.stringify(updated));
+
+      localStorage.setItem('bookmarked-urls', JSON.stringify(updatedIds));
+      localStorage.setItem('bookmarked-articles', JSON.stringify(updatedArticles));
+
       setBookmark(!bookmark);
-      setSova([sova[0], sova[1] + brojac])
+      setSova([sova[0], sova[1] + brojac]);
       }}
       style={{
         backgroundImage: `url(${bookmark ? iconBookmarkFilled : iconBookmark})`,

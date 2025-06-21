@@ -32,7 +32,9 @@ function MaleVijesti() {
 
         const savedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
         
-        const bookmarksStatus = news.map(article => savedBookmarks.some(item => item.url === article.url));
+        const bookmarksStatus = news.map(article =>
+        savedBookmarks.includes(article.url)
+        );
 
         setBookmarks(bookmarksStatus);
 
@@ -76,33 +78,37 @@ function MaleVijesti() {
           className="bookmark-button"
           onClick={(e) => {
             e.stopPropagation();
-            const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
 
+            const storedIds = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+            const storedArticles = JSON.parse(localStorage.getItem('bookmarked-articles') || '{}');
+
+            const article = articles[index];
+            const articleUrl = article.url;
+
+            const newStatus = !bookmarks[index];
+            const updatedBookmarks = [...bookmarks];
+            updatedBookmarks[index] = newStatus;
+            setBookmarks(updatedBookmarks);
+
+            let updatedIds = [...storedIds];
+            let updatedArticles = { ...storedArticles };
             let brojac = 0;
 
-            const article = {
-              url: articles[index].url,
-              title: articles[index].title,
-              description: articles[index].description,
-              urlToImage: articles[index].urlToImage
-            };
-
-            const updated = [...bookmarks];
-            const newStatus = !bookmarks[index];  
-            updated[index] = newStatus;
-            setBookmarks(updated);
-
-            let updatedStored;
-            const articleUrl = articles[index].url;  
             if (newStatus) {
-              updatedStored = [...stored, article];
-              brojac +=1;
+              if (!storedIds.includes(articleUrl)) {
+                updatedIds.push(articleUrl);
+                updatedArticles[articleUrl] = article;
+              }
+              brojac = 1;
             } else {
-              brojac -=1;
-              updatedStored = stored.filter(item => item.url !== articleUrl);
+              updatedIds = storedIds.filter(url => url !== articleUrl);
+              delete updatedArticles[articleUrl];
+              brojac = -1;
             }
-            localStorage.setItem('bookmarked-urls', JSON.stringify(updatedStored));
-            setSova([sova[0], sova[1] + brojac])
+
+            localStorage.setItem('bookmarked-urls', JSON.stringify(updatedIds));
+            localStorage.setItem('bookmarked-articles', JSON.stringify(updatedArticles));
+            setSova([sova[0], sova[1] + brojac]);
           }}
           style={{
             backgroundImage: `url(${bookmarks[index] ? iconBookmarkFilled : iconBookmark})`,

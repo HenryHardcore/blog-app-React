@@ -15,29 +15,27 @@ function MyBlogs({ onClose }) {
   const { setBlogToEdit } = useEditBlog();
   
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(
-      sova[0] === 'Bookmarks' ? 'bookmarked-urls' : 'my-blogs'
-    ) || '[]');
+    const storedIds = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+    const storedArticles = JSON.parse(localStorage.getItem('bookmarked-articles') || '{}');
+    const allMyBlogs = JSON.parse(localStorage.getItem('my-blogs') || '[]');
+
+    let data = [];
+
+    if (sova[0] === 'Bookmarks') {
+      data = storedIds.map(id => storedArticles[id]).filter(Boolean);
+    } else {
+      data = sova[0] === 'MyBlogs' ? allMyBlogs : allNews;
+    }
+
     setNiz(data);
 
-    const storedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
-
     const bookmarksFlags = data.map(article => {
-      return storedBookmarks.some(bookmarked => {
-        if (article.id && bookmarked.id) {
-          return article.id === bookmarked.id;
-        }
-        return article.url && bookmarked.url && article.url === bookmarked.url;
-      });
+      const identifier = article.id || article.url;
+      return storedIds.includes(identifier);
     });
 
     setBookmarks(bookmarksFlags);
-    }
-  , [sova]);
-
-  const toggleDetails = (index) => {
-    setActiveIndex(prev => (prev === index ? null : index));
-  };
+  }, [sova]);
 
   
 
@@ -73,7 +71,18 @@ function MyBlogs({ onClose }) {
                   setBlogToEdit(article);
                   onClose(); 
                 }}></button>
-                <button className='delete-post' onClick={ onClose }></button>
+                <button className='delete-post' 
+                onClick={() => {
+                  //let updated;
+                  //const stored = JSON.parse(localStorage.getItem('my-blogs') || '[]');
+                  //updated = stored.filter(article => article.id !== id);
+                  //localStorage.setItem('my-blogs', JSON.stringify([...updated, newPost]));
+                  //setSova([sova[0], sova[1] - 1])
+                  //alert("i was too lazy to ask you if u wanted to delete that post, if u didnt well rip")
+                  }
+                }
+                
+                ></button>
               </div>
             )}
             <div className="naslovv">
@@ -95,39 +104,36 @@ function MyBlogs({ onClose }) {
                 className="bookmark-button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  const stored = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
 
-                  
+                  const storedIds = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+                  const storedArticles = JSON.parse(localStorage.getItem('bookmarked-articles') || '{}');
+
                   const updated = [...bookmarks];
                   const newStatus = !bookmarks[index];
                   updated[index] = newStatus;
                   setBookmarks(updated);
-                  
 
-                  
-                  const isUserPost = !!article.id;
-                  const identifier = isUserPost ? article.id : article.url;
+                  const identifier = article.id || article.url;
 
-                  let updatedStored;
+                  let updatedIds = [...storedIds];
+                  let updatedArticles = { ...storedArticles };
+                  let brojac = 0;
 
                   if (newStatus) {
-                    const alreadyBookmarked = stored.some(item =>
-                      isUserPost ? item.id === identifier : item.url === identifier
-                    );
-
-                    updatedStored = alreadyBookmarked ? stored : [...stored, article];
+                    if (!storedIds.includes(identifier)) {
+                      updatedIds.push(identifier);
+                      updatedArticles[identifier] = article;
+                    }
+                    brojac = 1;
                   } else {
-                    updatedStored = stored.filter(item =>
-                      isUserPost
-                        ? item.id !== identifier
-                        : item.url !== identifier
-                    );
+                    updatedIds = storedIds.filter(item => item !== identifier);
+                    delete updatedArticles[identifier];
+                    brojac = -1;
                   }
-                  
-                  localStorage.setItem('bookmarked-urls', JSON.stringify(updatedStored));
 
-                  
-                  const brojac = newStatus ? 1 : -1;
+                  localStorage.setItem('bookmarked-urls', JSON.stringify(updatedIds));
+                  localStorage.setItem('bookmarked-articles', JSON.stringify(updatedArticles));
+
                   setSova([sova[0], sova[1] + brojac]);
                 }}
                 style={{
