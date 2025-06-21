@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { SovaProvider, VijestProvider } from './VijestContext';
+import { SovaProvider, VijestProvider, EditBlogProvider } from './VijestContext';
 import './index.css'
 import App from './App.jsx'
 import './header.css'
@@ -15,7 +15,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <VijestProvider>
       <SovaProvider>
-        <App />
+        <EditBlogProvider>
+          <App />
+        </EditBlogProvider>
       </SovaProvider>
     </VijestProvider>
   </StrictMode>,

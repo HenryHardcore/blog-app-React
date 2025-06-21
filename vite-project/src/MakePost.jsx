@@ -1,12 +1,32 @@
 import { useState } from 'react';
+import { useEditBlog, useSova } from './VijestContext';
+import { useEffect } from 'react';
 
 function MakePost({ onClose }) {
+  const { setBlogToEdit } = useEditBlog();
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [link, setLink] = useState('');
+  const [link, seLink] = useState('');
+  const [id, setId] = useState(undefined)
+  const { sova, setSova } = useSova();
   
   
+  localStorage.clear()
+  
+  const { blogToEdit } = useEditBlog();
+
+  useEffect(() => {
+    if (blogToEdit) {
+      setTitle(blogToEdit.title || '');
+      setDescription(blogToEdit.description || '');
+      setImage(blogToEdit.image || null);
+      setId(blogToEdit.id || undefined)
+    }
+  }, [blogToEdit]);
+  
+
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -26,23 +46,32 @@ function MakePost({ onClose }) {
       return;
     }
 
+    
     const newPost = {
-      id: crypto.randomUUID?.() || Date.now(), 
+      id: id || crypto.randomUUID?.() || Date.now(), 
       title,
       description,
       image,
       url: link.trim() !== '' ? link : null,
     };
 
-    
+    let updated;
     const stored = JSON.parse(localStorage.getItem('my-blogs') || '[]');
-    localStorage.setItem('my-blogs', JSON.stringify([...stored, newPost]));
+  
+    if (id) {
+      updated = stored.filter(item => item.id !== id);
+    }
+    else  updated = stored;
+    
+    localStorage.setItem('my-blogs', JSON.stringify([...updated, newPost]));
 
     
     setTitle('');
     setDescription('');
     setImage(null);
     onClose();
+    setSova([sova[0], sova[1] + 1])
+    setBlogToEdit(null);
   };
   
   return (
@@ -52,7 +81,10 @@ function MakePost({ onClose }) {
           <button
             type="button"
             className="close-button"
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              setBlogToEdit(null);
+            }}
           >
             X
           </button>

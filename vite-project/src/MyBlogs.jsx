@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useSova } from './VijestContext';
+import { useSova, useEditBlog } from './VijestContext';
 import { useState } from 'react'
 import iconBookmark from './fotografije/icons-bookmark.png';
 import iconBookmarkFilled from './fotografije/icons-bookmark-filled.png';
@@ -11,6 +11,8 @@ function MyBlogs({ onClose }) {
   const [niz, setNiz] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [bookmarks, setBookmarks] = useState([]);
+
+  const { setBlogToEdit } = useEditBlog();
   
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(
@@ -65,8 +67,13 @@ function MyBlogs({ onClose }) {
           >
             { sova[0] === "MyBlogs" && (
               <div className='buttons' onClick={(e) => e.stopPropagation()}>
-                <button className='edit-post'></button>
-                <button className='delete-post'></button>
+                <button className='edit-post'  
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setBlogToEdit(article);
+                  onClose(); 
+                }}></button>
+                <button className='delete-post' onClick={ onClose }></button>
               </div>
             )}
             <div className="naslovv">

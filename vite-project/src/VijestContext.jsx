@@ -31,3 +31,17 @@ export function SovaProvider({ children }) {
 export function useSova() {
   return useContext(SovaContext);
 }
+
+const EditBlogContext = createContext();
+
+export const EditBlogProvider = ({ children }) => {
+  const [blogToEdit, setBlogToEdit] = useState(null);
+
+  return (
+    <EditBlogContext.Provider value={{ blogToEdit, setBlogToEdit }}>
+      {children}
+    </EditBlogContext.Provider>
+  );
+};
+
+export const useEditBlog = () => useContext(EditBlogContext);
