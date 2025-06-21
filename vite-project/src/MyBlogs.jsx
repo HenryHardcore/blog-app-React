@@ -37,7 +37,9 @@ function MyBlogs({ onClose }) {
     setBookmarks(bookmarksFlags);
   }, [sova]);
 
-  
+  const toggleDetails = (index) => {
+    setActiveIndex(prev => (prev === index ? null : index));
+  };
 
   return (
     <div className="my-blogs">
@@ -73,14 +75,24 @@ function MyBlogs({ onClose }) {
                 }}></button>
                 <button className='delete-post' 
                 onClick={() => {
-                  //let updated;
-                  //const stored = JSON.parse(localStorage.getItem('my-blogs') || '[]');
-                  //updated = stored.filter(article => article.id !== id);
-                  //localStorage.setItem('my-blogs', JSON.stringify([...updated, newPost]));
-                  //setSova([sova[0], sova[1] - 1])
-                  //alert("i was too lazy to ask you if u wanted to delete that post, if u didnt well rip")
-                  }
-                }
+                  const stored = JSON.parse(localStorage.getItem('my-blogs') || '[]');
+                  const storedArticles = JSON.parse(localStorage.getItem('bookmarked-articles') || '[]');
+                  const storedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+
+                  const updated = Array.isArray(stored) ? stored.filter(blog => blog.id !== article.id) : [];
+                  const updatedArticles = Array.isArray(storedArticles) ? storedArticles.filter(blog => blog.id !== article.id) : [];
+                  const updatedBookmarks = Array.isArray(storedBookmarks)
+                    ? storedBookmarks.filter(item => item !== article.id && item !== article.url)
+                    : [];
+
+                  localStorage.setItem('my-blogs', JSON.stringify(updated));
+                  localStorage.setItem('bookmarked-articles', JSON.stringify(updatedArticles));
+                  localStorage.setItem('bookmarked-urls', JSON.stringify(updatedBookmarks));
+
+                  alert("i was too lazy to ask you if u intended to delete that post so if u missclicked RIP");
+
+                  setSova([sova[0], sova[1] - 1]);
+                }}
                 
                 ></button>
               </div>

@@ -7,12 +7,12 @@ function MakePost({ onClose }) {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [link, seLink] = useState('');
+  const [link, setLink] = useState('');
   const [id, setId] = useState(undefined)
   const { sova, setSova } = useSova();
   
   
-  localStorage.clear()
+
   
   const { blogToEdit } = useEditBlog();
 
@@ -22,7 +22,13 @@ function MakePost({ onClose }) {
       setDescription(blogToEdit.description || '');
       setImage(blogToEdit.image || null);
       setId(blogToEdit.id || undefined)
-    }
+    } else {
+    setTitle('');
+    setDescription('');
+    setImage(null);
+    setLink('');
+    setId(undefined);
+  }
   }, [blogToEdit]);
   
 
@@ -84,6 +90,7 @@ function MakePost({ onClose }) {
             onClick={() => {
               onClose();
               setBlogToEdit(null);
+              setId(undefined)
             }}
           >
             X
