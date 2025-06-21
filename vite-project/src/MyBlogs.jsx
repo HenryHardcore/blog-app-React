@@ -74,23 +74,42 @@ function MyBlogs({ onClose }) {
                   onClose(); 
                 }}></button>
                 <button className='delete-post' 
-                onClick={() => {
+                onClick={(e) => {
                   const stored = JSON.parse(localStorage.getItem('my-blogs') || '[]');
-                  const storedArticles = JSON.parse(localStorage.getItem('bookmarked-articles') || '[]');
-                  const storedBookmarks = JSON.parse(localStorage.getItem('bookmarked-urls') || '[]');
+                  const storedArticlesRaw = localStorage.getItem('bookmarked-articles');
+                  const storedBookmarksRaw = localStorage.getItem('bookmarked-urls');
 
-                  const updated = Array.isArray(stored) ? stored.filter(blog => blog.id !== article.id) : [];
-                  const updatedArticles = Array.isArray(storedArticles) ? storedArticles.filter(blog => blog.id !== article.id) : [];
-                  const updatedBookmarks = Array.isArray(storedBookmarks)
-                    ? storedBookmarks.filter(item => item !== article.id && item !== article.url)
-                    : [];
+                  let storedArticles = {};
+                  let storedBookmarks = [];
 
-                  localStorage.setItem('my-blogs', JSON.stringify(updated));
-                  localStorage.setItem('bookmarked-articles', JSON.stringify(updatedArticles));
-                  localStorage.setItem('bookmarked-urls', JSON.stringify(updatedBookmarks));
+                  try {
+                    const parsed = JSON.parse(storedArticlesRaw);
+                    storedArticles = typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+                  } catch {}
+
+                  try {
+                    const parsed = JSON.parse(storedBookmarksRaw);
+                    storedBookmarks = Array.isArray(parsed) ? parsed : [];
+                  } catch {}
+
+                  const updatedMyBlogs = stored.filter(blog => blog.id !== article.id);
+                  localStorage.setItem('my-blogs', JSON.stringify(updatedMyBlogs));
+
+                  const identifier = article.id ?? article.url;
+                  if (!identifier) {
+                    console.warn("No identifier found for this article. Skipping bookmark deletion.");
+                    return;
+                  }
+
+                  if (storedBookmarks.includes(identifier)) {
+                    const updatedBookmarks = storedBookmarks.filter(item => item !== identifier);
+                    localStorage.setItem('bookmarked-urls', JSON.stringify(updatedBookmarks));
+
+                    delete storedArticles[identifier]; 
+                    localStorage.setItem('bookmarked-articles', JSON.stringify(storedArticles));
+                  }
 
                   alert("i was too lazy to ask you if u intended to delete that post so if u missclicked RIP");
-
                   setSova([sova[0], sova[1] - 1]);
                 }}
                 
