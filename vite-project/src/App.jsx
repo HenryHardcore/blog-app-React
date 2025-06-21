@@ -9,6 +9,7 @@ import MakePost from "./MakePost.jsx"
 
 function App() {
   const [showPostForm, setShowPostForm] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <>
@@ -17,15 +18,15 @@ function App() {
           <MakePost onClose={() => setShowPostForm(false)} />
         </div>
       )}
-      <Header/>
+      <Header searchQuery={searchQuery} setSearchQuery ={setSearchQuery}/>
       <div className='interface'>
         <Profile/>
         <Categories onClose={() => setShowPostForm(true)}/>
       </div>
       <div className='main-content'>
-        <GlavnaVijest/>
+        <GlavnaVijest searchQuery={searchQuery} setSearchQuery ={setSearchQuery}/>
         <div className='sporedne-vijesti'>
-          <MaleVijesti/>
+          <MaleVijesti searchQuery={searchQuery} setSearchQuery ={setSearchQuery}/>
         </div>
       </div>
       <MyBlogs onClose={() => setShowPostForm(true)} />

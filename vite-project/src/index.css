@@ -6,6 +6,7 @@ body {
 #root {
   display: grid;
   grid-template-columns: 315px 5fr 4fr;
+  height: 100vh;
 }
 .interface {
   display: flex;

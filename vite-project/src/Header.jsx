@@ -1,5 +1,12 @@
+import { useState } from "react";
+function Header({ searchQuery, setSearchQuery }) {
+  const [query, setQuery] = useState("");
 
-function Header() {
+  function handleKeyDown(e) {
+  if (e.key === "Enter") {
+    setSearchQuery(query); 
+  }
+}
 
   return(
   <div className="header">
@@ -7,7 +14,10 @@ function Header() {
       <h1>Pls give me job</h1>
     </div>
     <div className="desna">
-      <input type="text" placeholder="Search"/>
+      <input type="text" placeholder="Search"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      onKeyDown={handleKeyDown}/>
       <button></button>
     </div>
   </div>)

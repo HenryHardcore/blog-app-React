@@ -5,7 +5,7 @@ import iconBookmarkFilled from './fotografije/icons-bookmark-filled.png';
 import { useSova } from './VijestContext';
 
 
-function MaleVijesti() {
+function MaleVijesti({ searchQuery, setSearchQuery }) {
   const [articles, setArticles] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const { vijest } = useVijest();
@@ -17,9 +17,15 @@ function MaleVijesti() {
   useEffect(() => {
     async function fetchNews() {
       try {
-        const res = await fetch(
-          `https://newsapi.org/v2/top-headlines?country=us&category=${vijest}&apiKey=5f65315585d841a38ddf4e78f42f5f2c`
-        );
+          let url;
+
+        if (searchQuery && searchQuery.trim() !== '') {
+          url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(searchQuery)}&apiKey=5f65315585d841a38ddf4e78f42f5f2c`;
+        } else { 
+          url = `https://newsapi.org/v2/top-headlines?country=us&category=${vijest}&apiKey=5f65315585d841a38ddf4e78f42f5f2c`;
+        }
+
+        const res = await fetch(url);
         const data = await res.json();
 
         
@@ -44,7 +50,7 @@ function MaleVijesti() {
     }
 
     fetchNews();
-  }, [vijest, sova[1]]);
+  }, [vijest, sova[1], searchQuery]);
 
   function toggleDetails(index) {
     setActiveIndex((prev) => (prev === index ? null : index));
