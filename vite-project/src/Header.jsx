@@ -11,14 +11,14 @@ function Header({ searchQuery, setSearchQuery }) {
   return(
   <div className="header">
     <div className="lijeva">
-      <h1>Pls give me job</h1>
+      <h1>Bla bla</h1>
     </div>
     <div className="desna">
       <input type="text" placeholder="Search"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       onKeyDown={handleKeyDown}/>
-      <button></button>
+      <button onClick={() => setSearchQuery(query)}></button>
     </div>
   </div>)
 }

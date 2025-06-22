@@ -10,13 +10,17 @@ import './glavna-vijest.css'
 import './myblogs.css'
 import './malevijesti.css'
 import './make-post.css'
+import './app.css'
+import { AuthProvider } from './auth.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <VijestProvider>
       <SovaProvider>
         <EditBlogProvider>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </EditBlogProvider>
       </SovaProvider>
     </VijestProvider>

@@ -1,0 +1,10 @@
+.login-screen {
+  width: 600px;
+  height: 50%;
+  background-color: aqua;
+}
+#root.login-mode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
