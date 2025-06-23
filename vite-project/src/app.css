@@ -1,7 +1,8 @@
 .login-screen {
   width: 600px;
   height: 50%;
-  background-color: aqua;
+  background-color: black;
+  border-radius: 20px;
 }
 #root.login-mode {
   display: flex;

@@ -3,6 +3,7 @@ import {
   doCreateUserWithEmailAndPassoword,
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
+  dosendEmailVerification
 } from './firebase/auth';
 
 export default function LoginForm() {
@@ -18,12 +19,14 @@ export default function LoginForm() {
   };
 
   const handleRegister = async () => {
-    try {
-      await doCreateUserWithEmailAndPassoword(email, password);
-    } catch (err) {
-      console.error("Registration failed:", err.message);
-    }
-  };
+  try {
+    await doCreateUserWithEmailAndPassoword(email, password);
+    await dosendEmailVerification();
+    alert("Account created! Verification email sent. Please check your inbox.");
+  } catch (err) {
+    console.error("Registration failed:", err.message);
+  }
+};
 
   const handleGoogleLogin = async () => {
     try {
