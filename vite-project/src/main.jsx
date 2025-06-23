@@ -11,6 +11,7 @@ import './myblogs.css'
 import './malevijesti.css'
 import './make-post.css'
 import './app.css'
+import './ligin-form.css'
 import { AuthProvider } from './auth.jsx';
 
 createRoot(document.getElementById('root')).render(

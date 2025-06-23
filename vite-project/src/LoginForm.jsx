@@ -34,20 +34,32 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)} />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleEmailLogin}>Log In</button>
-      <button onClick={handleRegister}>Register</button>
-      <button onClick={handleGoogleLogin}>Log In with Google</button>
+    <div className='login-form'>
+      <h2>Log In</h2>
+      <div className='email-container'>
+        <p>Email</p>
+        <input
+        className='email-input'
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} />
+      </div>
+      <div className='password-container'>
+        <p>Password</p>
+        <input
+          className='password-input'
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)} />
+      </div>
+      <button className='signin-button' onClick={handleEmailLogin}>Log In</button>
+      <label className='register-label'>Don't have an account?<button onClick={handleRegister}>Register</button></label>
+
+      <p>OR</p>
+      
+      <button className='login-google' onClick={handleGoogleLogin}>Log In with Google</button>
     </div>
   );
 }
